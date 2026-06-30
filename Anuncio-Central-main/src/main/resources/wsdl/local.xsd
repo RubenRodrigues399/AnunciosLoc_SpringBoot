@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://ws.anuncios.com/local"
+        xmlns:tns="http://ws.anuncios.com/local"
+        elementFormDefault="qualified">
+
+
+    <!-- ====================================== -->
+    <!--           REGISTO LOCAL                -->
+    <!-- ====================================== -->
+
+    <!-- REQUEST: REGISTAR UTILIZADOR -->
+    <xs:element name="RegistarLocalRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nome" type="xs:string"/>
+                <xs:element name="latitude" type="xs:double"/>
+                <xs:element name="longitude" type="xs:double"/>
+                <xs:element name="raio" type="xs:double"/>
+                <xs:element name="url" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!-- LOCAL REGISTO -->
+    <xs:complexType name="LocalRegisto">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="latitude" type="xs:double"/>
+            <xs:element name="longitude" type="xs:double"/>
+            <xs:element name="raio" type="xs:double"/>
+            <xs:element name="url" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- RESPONSE: REGISTAR UTILIZADOR [RESPONSE BASE + UTILIZADOR RESPONSE REGISTO ]-->
+    <xs:element name="RegistarLocalResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="dados"    type="tns:LocalRegisto"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="PegarTodosLocaisRequest">
+        <xs:complexType>
+            <xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- RESPONSE: PEGAR TODOS LOCAIS -->
+    <xs:element name="PegarTodosLocaisResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="dados"    type="tns:LocalRegisto" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+
+
+    <!-- ====================================== -->
+    <!--           FEATURE ANUNCIOS             -->
+    <!-- ====================================== -->
+
+    <!-- REQUEST: CRIAR ANUNCIOS -->
+    <xs:element name="AnuncioRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="titulo" type="xs:string"/>
+                <xs:element name="descricao" type="xs:string"/>
+                <xs:element name="idLocal" type="xs:int"/>
+                <xs:element name="rolePolitica" type="xs:string"/>
+                <xs:element name="uuidCriador" type="xs:string"/>
+                <xs:element name="perfis" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- POLITICA RL PERFIL REGISTO -->
+    <xs:complexType name="PoliticaRLPerfilRegisto">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="idAnuncio" type="xs:int"/>
+            <xs:element name="idPerfil" type="xs:int"/>
+            <xs:element name="nomePerfil" type="xs:string"/>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ANUNCIO REGISTO -->
+    <xs:complexType name="AnuncioRegisto">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="titulo" type="xs:string"/>
+            <xs:element name="descricao" type="xs:string"/>
+            <xs:element name="idLocal" type="xs:int"/>
+            <xs:element name="local" type="xs:string"/>
+            <xs:element name="rolePolitica" type="xs:string"/>
+            <xs:element name="uuidCriador" type="xs:string"/>
+            <xs:element name="nomeCriador" type="xs:string"/>
+            <xs:element name="emailCriador" type="xs:string"/>
+            <xs:element name="dataCriacao" type="xs:string"/>
+            <xs:element name="dataActualizacao" type="xs:string"/>
+            <xs:element name="perfis" type="tns:PoliticaRLPerfilRegisto" minOccurs="0" maxOccurs="unbounded"/>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ANUNCIO REGISTO INFRA -->
+    <xs:complexType name="AnuncioRegistoInfra">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="titulo" type="xs:string"/>
+            <xs:element name="descricao" type="xs:string"/>
+            <xs:element name="rolePolitica" type="xs:string"/>
+            <xs:element name="uuidCriador" type="xs:string"/>
+            <xs:element name="dataCriacao" type="xs:string"/>
+            <xs:element name="dataActualizacao" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+
+    <!-- RESPONSE: CRIAR ANUNCIOS ]-->
+    <xs:element name="AnuncioResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="dados"    type="tns:AnuncioRegisto"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- REQUEST: PEGAR ANUNCIOS DE UM USER -->
+    <xs:element name="PegarAnunciosDoUsuarioRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuidCriador" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- RESPONSE: CRIAR ANUNCIOS ]-->
+    <xs:element name="TodosAnunciosResponseInfra">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="anuncios" type="tns:AnuncioRegistoInfra" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- REQUEST: PEGAR ANUNCIOS DE UM USER -->
+    <xs:element name="PegarAnunciosDoLocalRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="idLocal" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- REQUEST: PEGAR ANUNCIOS DE UM USER -->
+    <xs:element name="PegarAnunciosPorCoordenadasRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuidUtilizador" type="xs:string"/>
+                <xs:element name="latitude" type="xs:double"/>
+                <xs:element name="longitude" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- REQUEST: LER ANUNCOS -->
+    <xs:element name="LerAnuncioRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="idAnuncio" type="xs:int"/>
+                <xs:element name="uuidUtilizador" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!-- LEITOR  REGISTO-->
+    <xs:complexType name="LeitorRegisto">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="idAnuncio" type="xs:int"/>
+            <xs:element name="uuidLeitor" type="xs:string"/>
+            <xs:element name="dataLeitura" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- RESPONSE: LER ANUNCIO ]-->
+    <xs:element name="LerAnuncioResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="dados"    type="tns:LeitorRegisto"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="AnuncioInfraResponse">
+        <xs:sequence>
+            <xs:element name="status" type="xs:int"/>
+            <xs:element name="idAnuncioInfra" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="PegarTodosAnunciosInfraRequest"></xs:complexType>
+
+    <xs:complexType name="PegarTodosAnunciosInfraRegisto">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="titulo" type="xs:string"/>
+            <xs:element name="descricao" type="xs:string"/>
+            <xs:element name="uuidCriador" type="xs:string"/>
+            <xs:element name="rolePolitica" type="xs:string"/>
+            <xs:element name="dataCriacao" type="xs:string"/>
+            <xs:element name="dataActualizacao" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="PegarTodosAnunciosInfraResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="anunciosInfra" type="tns:PegarTodosAnunciosInfraRegisto" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+</xs:schema>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://ws.anuncios.com/perfil"
+    xmlns:tns="http://ws.anuncios.com/perfil"
+    elementFormDefault="qualified">
+
+
+    <!-- ====================================== -->
+    <!--           REGISTO PERFIL           -->
+    <!-- ====================================== -->
+
+    <!-- REQUEST: REGISTAR PERFIL -->
+    <xs:element name="RegistarPerfilRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuidUtilizador" type="xs:string"/>
+                <xs:element name="titulo" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!-- PERFIL REGISTO -->
+    <xs:complexType name="PerfilRegisto">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="titulo" type="xs:string"/>
+            <xs:element name="dataCriacao" type="xs:string"/>
+            <xs:element name="uuidUtilizadorCriador" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- RESPONSE: REGISTAR UTILIZADOR [RESPONSE BASE + UTILIZADOR RESPONSE REGISTO ]-->    
+    <xs:element name="RegistarPerfilResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="dados"    type="tns:PerfilRegisto"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!-- ====================================== -->
+    <!--     PEGAR TODOS PERFÍS REGISTADOS      -->
+    <!-- ====================================== -->
+
+    <!-- REQUEST: PEGAR TODOS PERFÍS -->
+    <xs:element name="PegarTodosPerfilRequest">
+        <xs:complexType>
+            <xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- RESPONSE: PEGAR TODOS PERFÍS -->
+    <xs:element name="PegarTodosPerfilResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="dados"    type="tns:PerfilRegisto" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ====================================== -->
+    <!--    ASSOCIAR PERFIL AO UTILIZADOR       -->
+    <!-- ====================================== -->
+
+    <!-- REQUEST: ASSOCIAR PERFIL AO UTILIZADOR -->
+    <xs:element name="AssociarPerfilRequest">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="idPerfil" type="xs:int"/>
+            <xs:element name="uuidUtilizador" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- RESPONSE: ASSOCIAR PERFIL AO UTILIZADOR -->
+    <xs:element name="AssociarPerfilResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ====================================== -->
+    <!--   PEGAR PERFIS ASSOCIADOS              -->
+    <!-- ====================================== -->
+
+    <!-- RESQUEST: PEGAR PERFIS ASSOCIADOS -->
+    <xs:element name="PegarPerfisAssociadoRequest">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="uuidUtilizador" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- RESPONSE: PEGAR PERFIS ASSOCIADOS -->
+    <xs:element name="PegarPerfisAssociadoResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="dados"    type="tns:PerfilRegisto" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!-- == Pegar perfis associados -->
+
+    <!-- RESPONSE: REGISTAR UTILIZADOR [RESPONSE BASE + UTILIZADOR RESPONSE REGISTO ]-->    
+
+
+    <!-- ====================================== -->
+    <!--                    LOGOUT               -->
+    <!-- ====================================== -->
+
+
+
+
+
+
+</xs:schema>

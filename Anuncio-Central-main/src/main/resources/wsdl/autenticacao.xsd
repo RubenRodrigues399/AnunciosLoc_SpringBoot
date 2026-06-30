@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://ws.anuncios.com/autenticacao"
+        xmlns:tns="http://ws.anuncios.com/autenticacao"
+        elementFormDefault="qualified">
+
+
+    <!-- ====================================== -->
+    <!--           REGISTO UTILIZADOR           -->
+    <!-- ====================================== -->
+
+    <!-- REQUEST: REGISTAR UTILIZADOR -->
+    <xs:element name="RegistarUtilizadorRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nome" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="role" type="xs:string"/>
+                <xs:element name="senha" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <!-- ====================================== -->
+    <!--                    LOGIN               -->
+    <!-- ====================================== -->
+
+    <xs:element name="LoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="senha" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="UtilizadorLogin">
+        <xs:sequence>
+            <xs:element name="uuid" type="xs:string"/>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="telefone" type="xs:string"/>
+            <xs:element name="role" type="xs:string"/>
+            <xs:element name="token" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- RESPONSE: REGISTAR UTILIZADOR [RESPONSE BASE + UTILIZADOR RESPONSE REGISTO ]-->
+    <xs:element name="LoginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="dados"    type="tns:UtilizadorLogin"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ====================================== -->
+    <!--                    LOGOUT              -->
+    <!-- ====================================== -->
+    <xs:element name="LogoutRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="LogoutResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ====================================== -->
+    <!--    VERIFICAR A VALIDADE DO TICKET      -->
+    <!-- ====================================== -->
+
+    <xs:complexType name="UtilizadorTicket">
+        <xs:sequence>
+            <xs:element name="uuid" type="xs:string"/>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="saldo" type="xs:int"/>
+            <xs:element name="role" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="ValidarTicketResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="dados"    type="tns:UtilizadorTicket"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ====================================== -->
+    <!--            REPLICAÇÃO                 -->
+    <!-- ====================================== -->
+
+    <xs:element name="ReplicacaoResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ====================================== -->
+    <!--            REGISTRAR UTILIZADOR        -->
+    <!-- ====================================== -->
+    <xs:complexType name="UtilizadorRegistoReplicacaoRequest">
+        <xs:sequence>
+            <xs:element name="uuid" type="xs:string"/>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="telefone" type="xs:string"/>
+            <xs:element name="saldo" type="xs:int"/>
+            <xs:element name="role" type="xs:string"/>
+            <xs:element name="idPerfilActivo" type="xs:int"/>
+            <xs:element name="nomePerfilActivo" type="xs:string"/>
+            <xs:element name="dataCriacao" type="xs:string"/>
+            <xs:element name="dataActualizacao" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <!-- ====================================== -->
+    <!--            ACTUALIZAR UTILIZADOR        -->
+    <!-- ====================================== -->
+    <xs:complexType name="ActualizacaoUtilizadorReplicacaoRequest">
+        <xs:sequence>
+            <xs:element name="uuid" type="xs:string"/>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="telefone" type="xs:string"/>
+            <xs:element name="saldo" type="xs:int"/>
+            <xs:element name="idPerfilActivo" type="xs:int"/>
+            <xs:element name="nomePerfilActivo" type="xs:string"/>
+            <xs:element name="dataActualizacao" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ====================================== -->
+    <!--     PEGAR UTILIZADORES UTILIZADOR      -->
+    <!-- ====================================== -->
+
+    <!-- REQUEST: PEGAR UTILIZADORES -->
+    <xs:element name="PegarTodosUtilizadoresRequest">
+        <xs:complexType>
+            <xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- -->
+    <xs:complexType name="UtilizadorRegisto">
+        <xs:sequence>
+            <xs:element name="uuid" type="xs:string"/>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="telefone" type="xs:string"/>
+            <xs:element name="saldo" type="xs:int"/>
+            <xs:element name="role" type="xs:string"/>
+            <xs:element name="idPerfilActivo" type="xs:int"/>
+            <xs:element name="nomePerfilActivo" type="xs:string"/>
+            <xs:element name="dataCriacao" type="xs:string"/>
+            <xs:element name="dataActualizacao" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <!-- RESPONSE: PEGAR TODOS UTILIZADORES -->
+    <xs:element name="PegarTodosUtilizadoresResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="utilizadores" type="tns:UtilizadorRegisto" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- REQUEST: ASSOCIAR PERFIL AO UTILIZADOR -->
+    <xs:element name="ConsultarSaldoRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuidUtilizador" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- RESPONSE: ASSOCIAR PERFIL AO UTILIZADOR -->
+    <xs:element name="ConsultarSaldoResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statusCode" type="xs:int"/>
+                <xs:element name="mensagem" type="xs:string"/>
+                <xs:element name="saldoActual" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

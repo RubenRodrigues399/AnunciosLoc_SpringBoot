@@ -1,0 +1,6 @@
+authtoken: SEU_AUTHTOKEN
+
+tunnels:
+  anunciosloc:
+    proto: http
+    addr: 8080

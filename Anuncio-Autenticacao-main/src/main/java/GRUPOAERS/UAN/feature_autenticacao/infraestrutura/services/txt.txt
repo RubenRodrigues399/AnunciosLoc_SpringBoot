@@ -1,0 +1,27 @@
+=== RENOVAR TICKET
+@Endpoint
+public class RenewEndpoint {
+    
+    @PayloadRoot(namespace = "http://example.com/kerberos", localPart = "RenewRequest")
+    @ResponsePayload
+    public RenewResponse renewTicket(@RequestPayload RenewRequest request) throws GeneralSecurityException {
+        String decrypted = CryptoUtils.decrypt(request.getTicket());
+        String[] parts = decrypted.split("\\|");
+        
+        if (parts.length != 3) throw new RuntimeException("Ticket inválido");
+        
+        // Verifica se o ticket expirou (30 minutos de validade)
+        long creationTime = Long.parseLong(parts[2]);
+        if (System.currentTimeMillis() - creationTime > 30 * 60 * 1000) {
+            throw new RuntimeException("Ticket expirado");
+        }
+        
+        // Renova o ticket (adiciona mais 30 minutos)
+        String renewedContent = parts[0] + "|" + parts[1] + "|" + System.currentTimeMillis();
+        String renewedTicket = CryptoUtils.encrypt(renewedContent);
+        
+        RenewResponse response = new RenewResponse();
+        response.setRenewedTicket(renewedTicket);
+        return response;
+    }
+}

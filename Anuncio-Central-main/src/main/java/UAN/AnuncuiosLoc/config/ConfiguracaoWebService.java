@@ -59,10 +59,10 @@ public class ConfiguracaoWebService extends WsConfigurerAdapter{
         return definition;
     }
 
-    @Bean
-    public XsdSchema utilizadorSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("wsdl/autenticacao.xsd"));
-    }
+    //@Bean
+    //public XsdSchema utilizadorSchema() {
+    //    return new SimpleXsdSchema(new ClassPathResource("wsdl/autenticacao.xsd"));
+    //}
 
     // ==== CONFIGURAÇÕES XSDS PERFIL
     @Bean(name = "perfil")
@@ -94,6 +94,27 @@ public class ConfiguracaoWebService extends WsConfigurerAdapter{
     @Bean
     public XsdSchema localSchema() {
         return new SimpleXsdSchema(new ClassPathResource("wsdl/local.xsd"));
+    }
+
+    @Bean(name = "utilizador")
+    public DefaultWsdl11Definition utilizadorWsdlDefinition(
+            XsdSchema utilizadorSchema) {
+
+        DefaultWsdl11Definition definition =
+                new DefaultWsdl11Definition();
+
+        definition.setPortTypeName("UtilizadorPort");
+        definition.setLocationUri("/ws");
+        definition.setTargetNamespace("http://ws.anuncios.com/utilizador");
+        definition.setSchema(utilizadorSchema);
+
+        return definition;
+    }
+
+    @Bean
+    public XsdSchema utilizadorSchema() {
+        return new SimpleXsdSchema(
+                new ClassPathResource("wsdl/utilizador.xsd"));
     }
 
 }

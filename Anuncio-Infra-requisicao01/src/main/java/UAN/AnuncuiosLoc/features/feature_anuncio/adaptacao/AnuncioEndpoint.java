@@ -28,7 +28,7 @@ public class AnuncioEndpoint {
 
     @PostConstruct
     public void init() {
-        System.out.println("🔥 Endpoint `AnuncioEndpoint` instanciado!");
+        System.out.println(" Endpoint `AnuncioEndpoint` instanciado!");
     }
 
     @Autowired
